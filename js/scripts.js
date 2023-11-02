@@ -1,31 +1,49 @@
-
-// business logic
-function add(number1, number2) {
-  return number1 + number2;
+// Business Logic
+function add(num1, num2) {
+  return num1 + num2;
 }
 
-function subtract(number1, number2) {
-  return number1 - number2;
+function subtract(num1, num2) {
+  return num1 - num2;
 }
 
-function multiply(number1, number2) {
-  return number1 * number2;
+function multiply(num1, num2) {
+  return num1 * num2;
 }
 
-function divide(number1, number2) {
-  return number1 / number2;
+function divide(num1, num2) {
+  return num1 / num2;
+}
+function calculate(num1, num2, operatorParam) {
+  if (operatorParam === "add") {
+    return add(num1, num2);
+  } else if (operatorParam === "subtract") {
+    return subtract(num1, num2);
+  } else if (operatorParam === "multiply") {
+    return multiply(num1, num2);
+  } else if (operatorParam === "divide") {
+    return divide(num1, num2);
+  }
 }
 
-// user interface logic 
-const number1 = parseFloat(prompt("Enter a number:")); // turn into a number here
-const number2 = parseFloat(prompt("Enter another number:"));
+// User Interface Logic
+function handleCalculation(event) {
+  event.preventDefault();
+  // the code to get and process form values will go here!
 
-window.alert(number1 + " plus " + number2 + " equals " + add(number1, number2) + ".");
-window.alert(number1 + " subtract " + number2 + " equals " + subtract(number1, number2) + ".");
-window.alert(number1 + " multiplied by " + number2 + " equals " + multiply(number1, number2) + ".");
-window.alert(number1 + " divided by " + number2 + " equals " + divide(number1, number2) + ".");
-window.alert("The addition of your numbers equals " + add(number1, number2)
+  const num1 = parseInt(document.querySelector("input#input1").value);
+  const num2 = parseInt(document.querySelector("input#input2").value);
+  const operator = document.querySelector("input[name='operator']:checked").value;
+  console.log("NUmber 1: " + num1);
+  console.log("number2: " + num2);
+  console.log("operator: " + operator);
 
-  + ". The subtraction of your numbers equals " + subtract(number1, number2) +
-  ". The multiplication of your numbers equals " + multiply(number1, number2) +
-  ". The division of your numbers equals " + divide(number1, number2) + ".")
+  let result = calculate(num1, num2, operator);
+  document.getElementById("output").innerText = result;
+}
+
+window.addEventListener("load", function () {
+  const form = document.getElementById("calculator");
+  form.addEventListener("submit", handleCalculation);
+});
+
